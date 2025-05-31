@@ -3,6 +3,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 import pygame
+import sys
 
 def main():
     print("Starting Asteroids!")
@@ -22,7 +23,7 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
-    Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
+    player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
     AsteroidField()
 
     while True:
@@ -36,6 +37,11 @@ def main():
 
         for o in drawable:
             o.draw(screen)
+        
+        for asteroid in asteroids:
+            if player.collision(asteroid):
+                sys.exit("Game over!")
+
 
         dt = clock.tick(60) / 1000
         pygame.display.flip()
